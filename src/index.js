@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import SortingMachine from "./SortingMachine";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<SortingMachine />, document.getElementById("root"));
