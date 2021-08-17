@@ -4,7 +4,7 @@ import Timer from "./Components/Timer";
 import SortResult from "./Components/SortResult";
 import Input from "./Components/Input";
 import Button from "./Components/Button";
-import { strToNum } from "./Utils/StrToNum";
+import { filterOnlyNum } from "./Utils/filterOnlyNum";
 import { ASC, DESC } from "./Utils/constant";
 import { sort } from "./Utils/sortNum";
 
@@ -13,10 +13,12 @@ const SortingMachine = () => {
     asc: [],
     desc: [],
   });
+  const [isLoading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState(false);
 
   const handleSort = (array) => setSortResult(array);
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -25,27 +27,24 @@ const SortingMachine = () => {
   };
 
   const handleStartSort = () => {
-    const result = strToNum(inputValue);
+    setLoading(true);
+    const result = filterOnlyNum(inputValue);
     handleSort((prev) => ({ ...prev, asc: sort(result, ASC) }));
     setTimeout(() => {
       handleSort((prev) => ({ ...prev, desc: sort(result, DESC) }));
+      setLoading(false);
     }, 3000);
   };
 
   const handleInput = (e) => {
     setError(false);
-    const {
-      target: { value },
-    } = e;
 
+    const { value } = e.target;
     if (value.length > 0 && value[value.length - 1] === "," && value[value.length - 2] === ",")
       return;
-    console.log(value, strToNum(value));
-    const checkValue = strToNum(value);
-    if (checkValue.includes(NaN)) {
-      setError(true);
-    }
-    setInputValue(value.replace(/[^0-9\,\-]|-{2,}/, ""));
+
+    if (filterOnlyNum(value).includes(NaN)) setError(true);
+    setInputValue(value.replace(/[^0-9\,\-]/, ""));
   };
 
   const handleError = (boolean) => setError(boolean);
@@ -55,7 +54,7 @@ const SortingMachine = () => {
       <Input {...{ handleInput, inputValue, error, handleKeyPress }} />
       <Button {...{ inputValue, handleSort, error, handleError, handleStartSort }} />
       <SortResult sortResult={sortResult.asc} />
-      <SortResult sortResult={sortResult.desc} />
+      <SortResult sortResult={sortResult.desc} isLoading={isLoading} />
       <Timer region="en-US" />
     </Container>
   );
