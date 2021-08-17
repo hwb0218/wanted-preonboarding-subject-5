@@ -73,7 +73,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  min-width: 550px;
+  width: 550px;
   height: 800px;
 
   display: flex;
