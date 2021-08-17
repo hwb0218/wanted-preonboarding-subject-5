@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = ({ error, handleStartSort }) => {
+const Button = ({ error, handleStartSort, inputValue }) => {
   return (
-    <StyledButton onClick={handleStartSort} disabled={error}>
+    <StyledButton onClick={handleStartSort} disabled={error || inputValue.length === 0}>
       START🤗
     </StyledButton>
   );

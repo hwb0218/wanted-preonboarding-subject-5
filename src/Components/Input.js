@@ -1,12 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const Input = ({ handleInput, inputValue, error, handleKeyPress }) => {
+const Input = ({ handleChangeValue, inputValue, error, handleKeyPress }) => {
   return (
     <>
       <InputBox
         onKeyPress={handleKeyPress}
-        onChange={(e) => handleInput(e)}
+        onChange={(e) => handleChangeValue(e)}
         value={inputValue}
         placeholder="데이터를 입력하세요"
         error={error}

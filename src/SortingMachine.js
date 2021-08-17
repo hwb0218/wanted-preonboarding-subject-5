@@ -20,6 +20,7 @@ const SortingMachine = () => {
   const handleSort = (array) => setSortResult(array);
 
   const handleKeyPress = (e) => {
+    if (inputValue === "") return;
     if (e.key === "Enter") {
       e.preventDefault();
       handleStartSort();
@@ -28,6 +29,8 @@ const SortingMachine = () => {
 
   const handleStartSort = () => {
     setLoading(true);
+    setInputValue("");
+
     const result = filterOnlyNum(inputValue);
     handleSort((prev) => ({ ...prev, asc: sort(result, ASC) }));
     setTimeout(() => {
@@ -36,9 +39,8 @@ const SortingMachine = () => {
     }, 3000);
   };
 
-  const handleInput = (e) => {
+  const handleChangeValue = (e) => {
     setError(false);
-
     const { value } = e.target;
     if (value.length > 0 && value[value.length - 1] === "," && value[value.length - 2] === ",")
       return;
@@ -47,15 +49,14 @@ const SortingMachine = () => {
     setInputValue(value.replace(/[^0-9\,\-]/, ""));
   };
 
-  const handleError = (boolean) => setError(boolean);
   return (
     <Container>
       <Wrapper>
         <Timer region="ko-KR" />
-        <Input {...{ handleInput, inputValue, error, handleKeyPress }} />
-        <Button {...{ inputValue, handleSort, error, handleError, handleStartSort }} />
+        <Input {...{ handleChangeValue, inputValue, error, handleKeyPress }} />
+        <Button {...{ error, handleStartSort, inputValue }} />
         <ResultField sortResult={sortResult.asc} />
-        <ResultField sortResult={sortResult.desc} isLoading={isLoading} />
+        <ResultField {...{ isLoading }} sortResult={sortResult.desc} />
         <Timer region="en-US" />
       </Wrapper>
     </Container>
