@@ -1,4 +1,4 @@
-export const strToNum = (textContent) => {
+export const filterOnlyNum = (textContent) => {
   return textContent
     .split(",")
     .filter((num) => num.trim() !== "")
