@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Timer from "./Components/Timer";
-import SortResult from "./Components/SortResult";
+import ResultField from "./Components/ResultField";
 import Input from "./Components/Input";
 import Button from "./Components/Button";
 import { filterOnlyNum } from "./Utils/filterOnlyNum";
@@ -50,22 +50,36 @@ const SortingMachine = () => {
   const handleError = (boolean) => setError(boolean);
   return (
     <Container>
-      <Timer region="ko-KR" />
-      <Input {...{ handleInput, inputValue, error, handleKeyPress }} />
-      <Button {...{ inputValue, handleSort, error, handleError, handleStartSort }} />
-      <SortResult sortResult={sortResult.asc} />
-      <SortResult sortResult={sortResult.desc} isLoading={isLoading} />
-      <Timer region="en-US" />
+      <Wrapper>
+        <Timer region="ko-KR" />
+        <Input {...{ handleInput, inputValue, error, handleKeyPress }} />
+        <Button {...{ inputValue, handleSort, error, handleError, handleStartSort }} />
+        <ResultField sortResult={sortResult.asc} />
+        <ResultField sortResult={sortResult.desc} isLoading={isLoading} />
+        <Timer region="en-US" />
+      </Wrapper>
     </Container>
   );
 };
 
 const Container = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const Wrapper = styled.div`
+  min-width: 550px;
+  height: 800px;
+
   display: flex;
-  height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  border: 1px solid ${({ theme }) => theme.color.darkmint};
+  border-radius: 20px;
 `;
 
 export default SortingMachine;
