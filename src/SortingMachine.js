@@ -7,6 +7,7 @@ import Button from "./Components/Button";
 import { filterOnlyNum } from "./Utils/filterOnlyNum";
 import { ASC, DESC } from "./Utils/constant";
 import { sort } from "./Utils/sortNum";
+import { regex } from "./Utils/regex";
 import useLoader from "./hooks/useLoader";
 
 const SortingMachine = () => {
@@ -48,7 +49,7 @@ const SortingMachine = () => {
       return;
 
     if (filterOnlyNum(value).includes(NaN)) setError(true);
-    setInputValue(value.replace(/[^0-9\,\-]/, ""));
+    setInputValue(value.replace(regex, ""));
   };
 
   return (

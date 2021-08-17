@@ -1,6 +1,7 @@
 import { sort } from "./Utils/sortNum";
 import { ASC, DESC } from "./Utils/constant";
 import { filterOnlyNum } from "./Utils/filterOnlyNum";
+import { regex } from "./Utils/regex";
 
 describe("ASC-TEST", () => {
   test("ASC-1", () => {
@@ -38,7 +39,7 @@ describe("DESC-TEST", () => {
   });
 });
 
-describe("input-test", () => {
+describe("INPUT-TEST", () => {
   test("alphabet", () => {
     expect(filterOnlyNum("a")).toContainEqual(NaN);
   });
@@ -63,5 +64,32 @@ describe("input-test", () => {
   });
   test("white space with commas", () => {
     expect(filterOnlyNum(", , , , ,")).toEqual([]);
+  });
+});
+
+describe("REGEX-TEST", () => {
+  test("alphabet", () => {
+    expect(regex.test("a")).toEqual(true);
+  });
+  test("korean", () => {
+    expect(regex.test("가")).toEqual(true);
+  });
+  test("special characters", () => {
+    expect(regex.test("!")).toEqual(true);
+  });
+  test("num", () => {
+    expect(regex.test("123")).toEqual(false);
+  });
+  test("comma", () => {
+    expect(regex.test(",")).toEqual(false);
+  });
+  test("num with comma", () => {
+    expect(regex.test("123,")).toEqual(false);
+  });
+  test("negative num", () => {
+    expect(regex.test("-3")).toEqual(false);
+  });
+  test("negative num with commas", () => {
+    expect(regex.test("-123,")).toEqual(false);
   });
 });

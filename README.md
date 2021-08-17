@@ -26,6 +26,30 @@
 
 </br>
 
+## TEST
+
+**`SortingMachine.test.js`**
+
+![테스트결과](https://user-images.githubusercontent.com/52212226/129712067-289a7a29-40b3-4aa3-8780-45a05ce3f2f6.PNG)
+
+### ASC-TEST
+
+✔️ 오름차순 테스트
+
+### DESC-TEST
+
+✔️ 내림차순 테스트
+
+### INPUT-TEST
+
+✔️ 숫자와 콤마 이외의 입력 데이터에 대한 예외처리 테스트
+
+### REGEX-TEST
+
+✔️ 숫자와 콤마 하이픈 이외의 값 확인하는 정규식 테스트
+
+</br>
+
 ## 설치 및 시작
 
 ```
