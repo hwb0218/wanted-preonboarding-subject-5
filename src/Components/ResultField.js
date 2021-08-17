@@ -1,17 +1,19 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const ResultField = ({ sortResult, isLoading }) => {
+const ResultField = ({ sortResult, loader }) => {
   return (
     <StyledResultField sortResult={sortResult}>
-      {isLoading ? "정렬 중 입니다." : sortResult}
+      {sortResult}
+      {loader}
     </StyledResultField>
   );
 };
 
 const StyledResultField = styled.div`
+  position: relative;
   width: 60%;
-  min-height: 5rem;
+  height: 30%;
   max-height: 20%;
   border: 1px solid ${({ theme }) => theme.color.darkmint};
   word-break: break-all;

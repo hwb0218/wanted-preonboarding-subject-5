@@ -7,13 +7,15 @@ import Button from "./Components/Button";
 import { filterOnlyNum } from "./Utils/filterOnlyNum";
 import { ASC, DESC } from "./Utils/constant";
 import { sort } from "./Utils/sortNum";
+import useLoader from "./hooks/useLoader";
 
 const SortingMachine = () => {
+  const [loader, showLoader, hideLoader] = useLoader();
   const [sortResult, setSortResult] = useState({
     asc: [],
     desc: [],
   });
-  const [isLoading, setLoading] = useState(false);
+
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState(false);
 
@@ -28,14 +30,14 @@ const SortingMachine = () => {
   };
 
   const handleStartSort = () => {
-    setLoading(true);
+    showLoader();
     setInputValue("");
 
     const result = filterOnlyNum(inputValue);
     handleSort((prev) => ({ ...prev, asc: sort(result, ASC) }));
     setTimeout(() => {
       handleSort((prev) => ({ ...prev, desc: sort(result, DESC) }));
-      setLoading(false);
+      hideLoader();
     }, 3000);
   };
 
@@ -56,7 +58,7 @@ const SortingMachine = () => {
         <Input {...{ handleChangeValue, inputValue, error, handleKeyPress }} />
         <Button {...{ error, handleStartSort, inputValue }} />
         <ResultField sortResult={sortResult.asc} />
-        <ResultField {...{ isLoading }} sortResult={sortResult.desc} />
+        <ResultField sortResult={sortResult.desc} {...{ loader }} />
         <Timer region="en-US" />
       </Wrapper>
     </Container>
